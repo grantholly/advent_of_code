@@ -3,51 +3,49 @@ package main
 import(
 	"fmt"
 	"os"
+	"strings"
+	"strconv"
+	"bufio"
 )
 
-
-func unpack(n int) []int {
-	l := []int{}
-
-	for {
-		if n <= 0 {
-			break
+func sum_pairs(in string, step int) int {
+	sub_strings := strings.Split(in, "")
+	var sum int
+	
+	for i := 0; i < len(sub_strings); i++ {
+		ss := sub_strings[i]
+		idx := i + step
+		// don't go out of bounds here
+		if idx >= len(in) {
+			idx -= len(in)
 		}
-		l = append(l, n % 10)
-		n /= 10
+		// use the safe index value
+		if ss == sub_strings[idx] {
+			i, _ := strconv.Atoi(ss)
+			sum += i
+		}
 	}
-	return l
-}
-
-func reverse(l []int) []int {
-	r := make([]int, len(l))
-
-	for i, j := 0, len(l) - 1; i < j; 
-	i, j = i + 1, j - 1 {
-		r[i], r[j] = r[j], r[i]
-	}
-	return r
-}
-
-func get_pairs(l []int) [][]int {
-	pairs := [][]int{}
-
-	for i, v := range l {
-		fmt.Println(i)
-		fmt.Println(v)
-	}
-	return pairs
+	return sum
 }
 
 func main () {
-	f, err := os.Open("/home/gholly/advent_of_code/day1.txt")
+	f, err := os.Open("/home/gholly/github/advent_of_code/day1.txt")
 	if err != nil {
 		fmt.Println("couldn't open file")
 	}
 	defer f.Close()
-	
-	nums := unpack(123334)
-//	nums = reverse(nums)
-	fmt.Println(nums)
-//	get_pairs(nums)
+
+	reader := bufio.NewReader(f)
+	f_input, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("couldn't read string")
+	}
+	fmt.Println(sum_pairs(strings.TrimSpace(f_input), 1))
+
+//	test := "311563"
+//	fmt.Println(sum_pairs(test, 1))
+
+	from_the_middle := len(strings.TrimSpace(f_input)) / 2
+	// walk up by the length of half of the slice
+	fmt.Println(sum_pairs(strings.TrimSpace(f_input), from_the_middle))
 }
