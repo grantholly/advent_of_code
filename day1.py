@@ -44,7 +44,7 @@ What is the solution to your new captcha?
 Your puzzle answer was 1092.
 '''
 # part one
-with open('/home/gholly/advent_of_code/day1.txt', 'r') as f:
+with open('./day1.txt', 'r') as f:
     puzzle_input = f.readline().strip()
 
 def unpack(s):

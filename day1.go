@@ -29,7 +29,7 @@ func sum_pairs(in string, step int) int {
 }
 
 func main () {
-	f, err := os.Open("/home/gholly/github/advent_of_code/day1.txt")
+	f, err := os.Open("./day1.txt")
 	if err != nil {
 		fmt.Println("couldn't open file")
 	}
